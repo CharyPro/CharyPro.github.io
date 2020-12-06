@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,7 +19,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：开发 - CHARY | 哈哈哈哈哈</title>
+  <title>ARM_Neon使用 - CHARY | 哈哈哈哈哈</title>
+  
+    <meta name="keywords" content="ARM,Neon,并行计算">
   
 
   
@@ -329,7 +329,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -393,667 +393,229 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow blur article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        ARM_Neon使用
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="/assets/logo/xiaote_logo.jpeg">
+    <p>Chary</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/">并行计算</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年12月6日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="ARM_Neon使用" data-path="/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <a id="more"></a>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://charypro.github.io/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/>http://charypro.github.io/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-06T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年12月6日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ARM/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ARM</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Neon/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Neon</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>并行计算</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-  <section class="post-list">
-    
-      
-        
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-        
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/&title=ARM_Neon使用 - CHARY | 哈哈哈哈哈&summary="
           
-        
+          >
           
-        
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+        </a>
       
     
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/&title=ARM_Neon使用 - CHARY | 哈哈哈哈哈&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/06/%E5%BC%80%E5%8F%91/Linux/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
-        Linux下常见问题解决方法
-      </a>
-    </h2>
-  
-  <div class='md'>
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/&title=ARM_Neon使用 - CHARY | 哈哈哈哈哈&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
       
+    
+      
+    
+  </div>
+</div>
+
+
+
         
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/12/06/%E5%BC%80%E5%8F%91/Linux/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Linux下常见问题解决方法</p>
+          <p class='content'>
 
 安装完OpenCV后，使用命令行编译1g++ rgbtogray.cpp -o test &#96;pkg-config --cflags --libs opencv&#96;
-出现类似下面错误:1error while loading shared libraries: libopencv_imgcodecs.so.3.4: cannot open shared object file...
+出现类似下面...</p>
+        </a>
       
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-06</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/12/06/%E5%BC%80%E5%8F%91/Linux/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/'>
-            阅读全文
-          </a>
-        </div>
+        <a class='next' href='/2020/12/05/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/'>
+          <p class='title'>新电脑重新搭建Blog<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>请输入密码8698f99a15a8216231f30d8e4be85dc5dc0b1aafd13a068f176f37c1aec06e15c395ead517d0a5e107651ede176d...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/">
-        ARM_Neon使用
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-06</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/">并行计算</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/06/22/%E5%BC%80%E5%8F%91/C++/Douglas-Peuker%E7%AE%97%E6%B3%95/">
-        道格拉斯算法的使用
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>本篇文章内容：</p>
-<ul>
-<li>道格拉斯算法的内容</li>
-<li>算法的普通实现</li>
-<li>在2D和3D空间中的实现</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-06-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/">算法</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/06/22/%E5%BC%80%E5%8F%91/C++/Douglas-Peuker%E7%AE%97%E6%B3%95/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/06/22/%E5%BC%80%E5%8F%91/QT/QGLViewer%E7%9A%84%E4%BD%BF%E7%94%A8/">
-        QGLViewer库的使用（更新...）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>本篇文章内容：</p>
-<ul>
-<li>QGLViewer环境的搭建</li>
-</ul>
-<p>下次更新</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-06-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/QT/">QT</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/06/22/%E5%BC%80%E5%8F%91/QT/QGLViewer%E7%9A%84%E4%BD%BF%E7%94%A8/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/05/11/%E5%BC%80%E5%8F%91/QT/QT%E5%8A%A8%E7%94%BB%E6%93%8D%E4%BD%9C/">
-        QT动画操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>本篇文章主要内容：</p>
-<ul>
-<li>QT的动画实现</li>
-</ul>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-05-11</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/QT/">QT</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/05/11/%E5%BC%80%E5%8F%91/QT/QT%E5%8A%A8%E7%94%BB%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/03/18/%E5%BC%80%E5%8F%91/C++/%E7%89%9B%E5%AE%A2%E7%BD%91%E9%94%99%E9%A2%98/">
-        牛客网错题收录
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>牛客网错题整理收录</strong>——软件工程师面试题收录，持续更新中…</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-03-18</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/">刷题</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/03/18/%E5%BC%80%E5%8F%91/C++/%E7%89%9B%E5%AE%A2%E7%BD%91%E9%94%99%E9%A2%98/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Shell%E7%AC%94%E8%AE%B0/">
-        linux Shell
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>linux Shell编程</strong></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-03-13</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Shell%E7%AC%94%E8%AE%B0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Makefile/">
-        Makefile的编写
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>Makefile编程</strong></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-03-13</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Makefile/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/02/27/%E5%BC%80%E5%8F%91/C++/Window%E4%B8%8A%E5%9F%BA%E4%BA%8EQT%E7%9A%84FFmpeg%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-        Window上基于QT的FFmpeg环境搭建
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>Window上基于QT的FFmpeg环境搭建</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-02-27</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/QT/">QT</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/02/27/%E5%BC%80%E5%8F%91/C++/Window%E4%B8%8A%E5%9F%BA%E4%BA%8EQT%E7%9A%84FFmpeg%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/01/19/%E5%BC%80%E5%8F%91/C++/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
-        LeetCode刷题记录(简单篇一)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>——持续更新中（15道题）…<br>题目来源：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/"><em>力扣（LeetCode）</em></a></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-01-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/">刷题</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/01/19/%E5%BC%80%E5%8F%91/C++/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-        <p class="current">
-          1 / 2
-        </p>
-        
-          <a class="next" rel="next" href="/categories/%E5%BC%80%E5%8F%91/page/2/">
-            <section class="post next white-box shadow blur">
-              &nbsp;下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
   
-    
-    
-
-<section class="widget blogger blur desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='/assets/logo/xiaote_logo.jpeg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">CHARY | 哈哈哈哈哈</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="mailto:chaiyun321@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/charypro"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=122961877"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
   
 
   
     
     
-  
-
-  <section class="widget category blur desktop">
-    
-  <header>
-    
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
 
 
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Blog%E6%90%AD%E5%BB%BA/" href="/categories/Blog%E6%90%AD%E5%BB%BA/"
-            id="categoriesBlogE690ADE5BBBA"
-            ><div class='name'>Blog搭建</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%BC%80%E5%8F%91/" href="/categories/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(13)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"
-            id="categoriesE5BC80E58F91LinuxE7B3BBE7BB9FE7BC96E7A88B"
-            ><div class='name'>Linux系统编程</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/QT/" href="/categories/%E5%BC%80%E5%8F%91/QT/"
-            id="categoriesE5BC80E58F91QT"
-            ><div class='name'>QT</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/"
-            id="categoriesE5BC80E58F91E588B7E9A298"
-            ><div class='name'>刷题</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/" href="/categories/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"
-            id="categoriesE5BC80E58F91E5B9B6E8A18CE8AEA1E7AE97"
-            ><div class='name'>并行计算</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/" href="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/"
-            id="categoriesE5BC80E58F91E6A087E58786E5BA93"
-            ><div class='name'>标准库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/" href="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/"
-            id="categoriesE5BC80E58F91E7AE97E6B395"
-            ><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud blur desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/ARM/" style="font-size: 14px; color: #999">ARM</a> <a href="/tags/C/" style="font-size: 24px; color: #555">C++</a> <a href="/tags/Neon/" style="font-size: 14px; color: #999">Neon</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/c/" style="font-size: 19px; color: #777">c++</a> <a href="/tags/ffmpeg/" style="font-size: 14px; color: #999">ffmpeg</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/qt/" style="font-size: 14px; color: #999">qt</a> <a href="/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/" style="font-size: 14px; color: #999">并行计算</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 19px; color: #777">面试</a>
-    </div>
-  </section>
 
 
   
@@ -1064,6 +626,7 @@
 </aside>
 
 
+
         
         
           <!--此文件用来存放一些不方便取值的变量-->
@@ -1071,8 +634,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="ARM_Neon使用";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

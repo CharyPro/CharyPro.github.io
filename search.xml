@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>Linux下常见问题解决方法</title>
+      <link href="2020/12/06/%E5%BC%80%E5%8F%91/Linux/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+      <url>2020/12/06/%E5%BC%80%E5%8F%91/Linux/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<a id="more"></a><ol><li>安装完<code>OpenCV</code>后，使用命令行编译<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ rgbtogray.cpp -o test &#96;pkg-config --cflags --libs opencv&#96;</span><br></pre></td></tr></table></figure>出现类似下面错误:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error <span class="keyword">while</span> loading shared libraries: libopencv_imgcodecs.so<span class="number">.3</span><span class="number">.4</span>: cannot open shared object file: No such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>解决方法：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c &#x27;echo &quot;/usr/local/lib&quot; &gt; /etc/ld.so.conf.d/opencv.conf&#x27; </span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+          <category> Linux系统编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ARM_Neon使用</title>
+      <link href="2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/"/>
+      <url>2020/12/06/%E5%BC%80%E5%8F%91/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E5%8F%8A%E4%BC%98%E5%8C%96/ARM_Neon%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+          <category> 并行计算 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ARM </tag>
+            
+            <tag> Neon </tag>
+            
+            <tag> 并行计算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>新电脑重新搭建Blog</title>
       <link href="2020/12/05/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/"/>
       <url>2020/12/05/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/</url>
