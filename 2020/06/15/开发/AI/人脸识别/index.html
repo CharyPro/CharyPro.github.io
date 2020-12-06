@@ -19,11 +19,17 @@
 
   <!-- 页面元数据 -->
   
-  <title>新电脑重新搭建Blog - CHARY | 哈哈哈哈哈</title>
+  <title>Github开源人脸识别项目face_recognition - CHARY | 哈哈哈哈哈</title>
   
 
   
-    <meta name="description" content="要点：在新的电脑上重新搭建自己的博客平台">
+    <meta name="description" content="功能介绍：
+
+从图片中定位人脸
+识别人脸关键点
+人脸识别人物
+…
+">
   
 
   <!-- feed -->
@@ -370,13 +376,6 @@
               <i class='fas fa-archive fa-fw'></i><p>归档</p>
             </a>
           
-            <a href="/else/"
-              
-              
-              id="else">
-              <i class='fas fa-play-circle fa-fw'></i><p>其它</p>
-            </a>
-          
             <a href="/about/"
               
               
@@ -411,7 +410,7 @@
     
     
       <h1 class="title">
-        新电脑重新搭建Blog
+        Github开源人脸识别项目face_recognition
       </h1>
       <div class='new-meta-box'>
         
@@ -428,13 +427,6 @@
         
           
             
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Blog%E6%90%AD%E5%BB%BA/">Blog搭建</a>
-    </a>
-  </div>
-
 
           
         
@@ -442,7 +434,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年12月5日</p>
+    <p>发布于：2020年6月15日</p>
   </a>
 </div>
 
@@ -453,7 +445,7 @@
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="新电脑重新搭建Blog" data-path="/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/">
+      <div id="lc-pv" data-title="Github开源人脸识别项目face_recognition" data-path="/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -470,18 +462,20 @@
 
 
   
-  <p>要点：在新的电脑上重新搭建自己的博客平台</p>
+  <p>功能介绍：</p>
+<ul>
+<li>从图片中定位人脸</li>
+<li>识别人脸关键点</li>
+<li>人脸识别人物</li>
+<li>…</li>
+</ul>
 <a id="more"></a>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/45827914">https://zhuanlan.zhihu.com/p/45827914</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="1-编译dlib库"><a href="#1-编译dlib库" class="headerlink" title="1.编译dlib库"></a>1.编译dlib库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/davisking/dlib.git</span><br><span class="line">cd dlib</span><br><span class="line">mkdir build; cd build; cmake ..; cmake --build .</span><br><span class="line">cd ..</span><br><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure>
+<p>安装后，可以在python中<code>import dlib</code>测试是否成功</p>
+<h4 id="安装-face-recognition"><a href="#安装-face-recognition" class="headerlink" title="安装 face_recognition"></a>安装 <code>face_recognition</code></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install face_recognition <span class="comment">#下载太慢</span></span><br><span class="line"><span class="comment">#可能需要这样做</span></span><br><span class="line">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple face_recognition</span><br></pre></td></tr></table></figure>
 
-
-<ol>
-<li>下载安装<code>Node.js</code>  <a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a></li>
-<li>安装 <code>hexo</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
-<li>下载blog源代码</li>
-<li>进入blog源码目录<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git  --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
-<li>正常使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s <span class="comment"># 测试</span></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></li>
-</ol>
-
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><h4 id="face-detection-和-face-recognition命令行"><a href="#face-detection-和-face-recognition命令行" class="headerlink" title="face_detection 和 face_recognition命令行"></a>face_detection 和 face_recognition命令行</h4><h4 id="Python代码中测试"><a href="#Python代码中测试" class="headerlink" title="Python代码中测试"></a>Python代码中测试</h4>
   
   
     
@@ -498,7 +492,7 @@
               
             
               
-                <p>本文永久链接是：<a href=http://charypro.github.io/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/>http://charypro.github.io/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/</a></p>
+                <p>本文永久链接是：<a href=http://charypro.github.io/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/>http://charypro.github.io/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</a></p>
               
             
           </blockquote>
@@ -515,10 +509,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-05T00:00:00+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-15T00:00:00+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年12月5日</p>
+    <p>更新于：2020年6月15日</p>
   </a>
 </div>
 
@@ -537,7 +531,13 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/&title=新电脑重新搭建Blog - CHARY | 哈哈哈哈哈&summary=要点：在新的电脑上重新搭建自己的博客平台"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/&title=Github开源人脸识别项目face_recognition - CHARY | 哈哈哈哈哈&summary=功能介绍：
+
+从图片中定位人脸
+识别人脸关键点
+人脸识别人物
+…
+"
           
           >
           
@@ -549,7 +549,13 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/&title=新电脑重新搭建Blog - CHARY | 哈哈哈哈哈&summary=要点：在新的电脑上重新搭建自己的博客平台"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/&title=Github开源人脸识别项目face_recognition - CHARY | 哈哈哈哈哈&summary=功能介绍：
+
+从图片中定位人脸
+识别人脸关键点
+人脸识别人物
+…
+"
           
           >
           
@@ -561,7 +567,13 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2020/12/05/%E5%85%B6%E5%AE%83/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/&title=新电脑重新搭建Blog - CHARY | 哈哈哈哈哈&summary=要点：在新的电脑上重新搭建自己的博客平台"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2020/06/15/%E5%BC%80%E5%8F%91/AI/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/&title=Github开源人脸识别项目face_recognition - CHARY | 哈哈哈哈哈&summary=功能介绍：
+
+从图片中定位人脸
+识别人脸关键点
+人脸识别人物
+…
+"
           
           >
           
@@ -591,19 +603,30 @@
   
     <div class="prev-next">
       
-      
-        <a class='next' href='/2020/06/22/%E5%BC%80%E5%8F%91/C++/Douglas-Peuker%E7%AE%97%E6%B3%95/'>
-          <p class='title'>道格拉斯算法的使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+        <a class='prev' href='/2020/06/22/%E5%BC%80%E5%8F%91/QT/QGLViewer%E7%9A%84%E4%BD%BF%E7%94%A8/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>QGLViewer库的使用（更新...）</p>
           <p class='content'>本篇文章内容：
 
-道格拉斯算法的内容
-算法的普通实现
-在2D和3D空间中的实现
+QGLViewer环境的搭建
+
+下次更新
+
+
+QGLViewer 的安装参考官网的教程基本都可以编译成功，我用QT编译的时候出现“无法打开../../QGLViewer.lib...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/05/11/%E5%BC%80%E5%8F%91/QT/QT%E5%8A%A8%E7%94%BB%E6%93%8D%E4%BD%9C/'>
+          <p class='title'>QT动画操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>本篇文章主要内容：
+
+QT的动画实现
 
 
 
-道格拉斯算法的内容参考：道格拉斯算法-百度百科
-道格拉斯 Douglas-Peuker 算法 的递归实现La...</p>
+动画框架基础由基类QAbstractAnimation以及它的两个子类QVariantAnimation、QAnimationGroup组成。
+
+QT...</p>
         </a>
       
     </div>
@@ -629,6 +652,20 @@
 
 
 
+  <section class="widget toc-wrapper blur desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BC%96%E8%AF%91dlib%E5%BA%93"><span class="toc-text">1.编译dlib库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-face-recognition"><span class="toc-text">安装 face_recognition</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-text">功能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#face-detection-%E5%92%8C-face-recognition%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-text">face_detection 和 face_recognition命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%B5%8B%E8%AF%95"><span class="toc-text">Python代码中测试</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
 
   
 
@@ -645,7 +682,7 @@
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="新电脑重新搭建Blog";
+  pdata.postTitle="Github开源人脸识别项目face_recognition";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
