@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2020 - CHARY | 哈哈哈哈哈</title>
+  <title>Pytorch实现PointNet - CHARY | 哈哈哈哈哈</title>
+  
+    <meta name="keywords" content="pytorch">
   
 
+  
+    <meta name="description" content="使用Pytorch实现PointNet,内容基本来自 大神">
   
 
   <!-- feed -->
@@ -329,7 +331,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -394,299 +396,230 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow blur article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        Pytorch实现PointNet
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Shell%E7%AC%94%E8%AE%B0/">
-        linux Shell
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>linux Shell编程</strong></p>
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="/assets/logo/xiaote_logo.jpeg">
+    <p>Chary</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/AI%E5%BA%94%E7%94%A8/">AI应用</a><span class="sep"></span><a class="category-link" href="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/">Pytorch</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-03-13</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年1月18日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>使用Pytorch实现PointNet,内容基本来自 <a href="!https://www.linkedin.com/in/nikitakaraev/">大神</a></p>
+<a id="more"></a>
+
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>在原始论文中，作者根据ModelNet40形状分类基准评估了PointNet。它包含来自40个对象类别的12311个模型，分为9843个训练和2468个用于测试的模型。为了简单起见，让我们使用同一数据集的较小版本：ModelNet10。它包含来自10个类别的对象，用于训练的3991个模型和用于测试的908个模型。该数据集由.off文件组成，这些文件包含由顶点和三角形面表示的网格。顶点只是3D空间中的点，每个三角形由3个顶点索引组成</p>
+<h3 id="下载数据集"><a href="#下载数据集" class="headerlink" title="下载数据集"></a>下载数据集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!wget http:&#x2F;&#x2F;3dvision.princeton.edu&#x2F;projects&#x2F;2014&#x2F;3DShapeNets&#x2F;ModelNet10.zip</span><br><span class="line">!unzip -q ModelNet10.zip</span><br></pre></td></tr></table></figure>
+<h3 id="创建读取-off-文件的函数"><a href="#创建读取-off-文件的函数" class="headerlink" title="创建读取.off 文件的函数"></a>创建读取.off 文件的函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_off</span>(<span class="params">file</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;OFF&#x27;</span> != file.readline().strip():</span><br><span class="line">        <span class="keyword">raise</span>(<span class="string">&#x27;Not a valid OFF header&#x27;</span>)</span><br><span class="line">    n_verts, n_faces, __ = <span class="built_in">tuple</span>([<span class="built_in">int</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> file.readline().strip().split(<span class="string">&#x27; &#x27;</span>)])</span><br><span class="line">    verts = [[<span class="built_in">float</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> file.readline().strip().split(<span class="string">&#x27; &#x27;</span>)] <span class="keyword">for</span> i_vert <span class="keyword">in</span> <span class="built_in">range</span>(n_verts)]</span><br><span class="line">    faces = [[<span class="built_in">int</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> file.readline().strip().split(<span class="string">&#x27; &#x27;</span>)][<span class="number">1</span>:] <span class="keyword">for</span> i_face <span class="keyword">in</span> <span class="built_in">range</span>(n_faces)]</span><br><span class="line">    <span class="keyword">return</span> verts, faces</span><br><span class="line">    </span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(path/<span class="string">&quot;bed/train/bed_0001.off&quot;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    mesh = read_off(f)</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/03/13/%E5%BC%80%E5%8F%91/Linux/Shell%E7%AC%94%E8%AE%B0/'>
-            阅读全文
-          </a>
+        <div class='references'>
+          <section class='header'>
+            
+              <i class="fas fa-quote-left fa-fw" aria-hidden="true"></i>
+            
+            <span>参考资料</span>
+          </section>
+          <section class='body'>
+            <ul>
+              
+                <li>
+                  <a href="/" rel="external nofollow noopener noreferrer" target="_blank">
+                  Deep Learning on Point clouds: Implementing PointNet in Google Colab
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://towardsdatascience.com/deep-learning-on-point-clouds-implementing-pointnet-in-google-colab-1fd65cd3a263" rel="external nofollow noopener noreferrer" target="_blank">
+                  https://towardsdatascience.com/deep-learning-on-point-clouds-implementing-pointnet-in-google-colab-1fd65cd3a263
+                  </a>
+                </li>
+              
+            </ul>
+          </section>
         </div>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://charypro.github.io/2021/01/18/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0PointNet++/>http://charypro.github.io/2021/01/18/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0PointNet++/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-18T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年1月18日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
+          
   
-  
-  
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/pytorch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>pytorch</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <h2 class="article-title" >
-      <a href="/2020/02/27/%E5%BC%80%E5%8F%91/C++/Window%E4%B8%8A%E5%9F%BA%E4%BA%8EQT%E7%9A%84FFmpeg%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-        Window上基于QT的FFmpeg环境搭建
-      </a>
-    </h2>
-  
-  <div class='md'>
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2021/01/18/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0PointNet++/&title=Pytorch实现PointNet - CHARY | 哈哈哈哈哈&summary=使用Pytorch实现PointNet,内容基本来自 大神"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
-      <p>Window上基于QT的FFmpeg环境搭建</p>
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2021/01/18/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0PointNet++/&title=Pytorch实现PointNet - CHARY | 哈哈哈哈哈&summary=使用Pytorch实现PointNet,内容基本来自 大神"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2021/01/18/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0PointNet++/&title=Pytorch实现PointNet - CHARY | 哈哈哈哈哈&summary=使用Pytorch实现PointNet,内容基本来自 大神"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time>2020-02-27</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/QT/">QT</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/02/27/%E5%BC%80%E5%8F%91/C++/Window%E4%B8%8A%E5%9F%BA%E4%BA%8EQT%E7%9A%84FFmpeg%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/'>
+          <p class='title'>Pytorch进行图像分割<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>使用Pytorch进行图像分割(不包括训练)
+
+
+数据和模型模型期望使用 Imagenet 均值和标准差对3通道图像（RGB）进行归一化
+1mean &#x3D; [0.485, 0.456, ...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/01/19/%E5%BC%80%E5%8F%91/C++/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
-        LeetCode刷题记录(简单篇一)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>——持续更新中（15道题）…<br>题目来源：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/"><em>力扣（LeetCode）</em></a></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-01-19</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/">刷题</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/01/19/%E5%BC%80%E5%8F%91/C++/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/01/18/%E5%BC%80%E5%8F%91/Linux/%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">
-        面试题收录
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>面试题整理收录</strong>——软件工程师面试题收录，持续更新中…</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-01-18</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/01/18/%E5%BC%80%E5%8F%91/Linux/%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/01/16/%E5%BC%80%E5%8F%91/C++/C++/">
-        顺序容器
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p><strong>C++中的顺序容器操作</strong></p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-01-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/01/16/%E5%BC%80%E5%8F%91/C++/C++/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/01/16/%E5%BC%80%E5%8F%91/Linux/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
-        Linux进程间通信
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <!-- **Linux进程间通信** -->
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-01-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a><span class="sep"></span><a class="category-link" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/01/16/%E5%BC%80%E5%8F%91/Linux/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/archives/2020/">
-            <section class="post prev white-box shadow blur" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          2 / 2
-        </p>
-        
-      </div>
-    
   
 
 
-	
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -694,157 +627,28 @@
     
     
 
-<section class="widget blogger blur desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='/assets/logo/xiaote_logo.jpeg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">CHARY | 哈哈哈哈哈</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="mailto:chaiyun321@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/charypro"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=122961877"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category blur desktop">
+  <section class="widget toc-wrapper blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/AI%E5%BA%94%E7%94%A8/" href="/categories/AI%E5%BA%94%E7%94%A8/"
-            id="categoriesAIE5BA94E794A8"
-            ><div class='name'>AI应用</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/" href="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/"
-            id="categoriesAIE5BA94E794A8Pytorch"
-            ><div class='name'>Pytorch</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Blog%E6%90%AD%E5%BB%BA/" href="/categories/Blog%E6%90%AD%E5%BB%BA/"
-            id="categoriesBlogE690ADE5BBBA"
-            ><div class='name'>Blog搭建</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%BC%80%E5%8F%91/" href="/categories/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"
-            id="categoriesE5BC80E58F91LinuxE7B3BBE7BB9FE7BC96E7A88B"
-            ><div class='name'>Linux系统编程</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/QT/" href="/categories/%E5%BC%80%E5%8F%91/QT/"
-            id="categoriesE5BC80E58F91QT"
-            ><div class='name'>QT</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/"
-            id="categoriesE5BC80E58F91E588B7E9A298"
-            ><div class='name'>刷题</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/" href="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/"
-            id="categoriesE5BC80E58F91E6A087E58786E5BA93"
-            ><div class='name'>标准库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/" href="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/"
-            id="categoriesE5BC80E58F91E7AE97E6B395"
-            ><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">下载数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%AF%BB%E5%8F%96-off-%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">创建读取.off 文件的函数</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud blur desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/C/" style="font-size: 24px; color: #555">C++</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/c/" style="font-size: 19px; color: #777">c++</a> <a href="/tags/ffmpeg/" style="font-size: 14px; color: #999">ffmpeg</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/pytorch/" style="font-size: 19px; color: #777">pytorch</a> <a href="/tags/qt/" style="font-size: 14px; color: #999">qt</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 19px; color: #777">面试</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -854,8 +658,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Pytorch实现PointNet";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
