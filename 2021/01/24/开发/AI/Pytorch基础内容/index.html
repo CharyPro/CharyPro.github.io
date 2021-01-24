@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,17 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：Blog搭建 - CHARY | 哈哈哈哈哈</title>
+  <title>Pytorch 简单的介绍 - CHARY | 哈哈哈哈哈</title>
+  
+    <meta name="keywords" content="pytorch">
   
 
+  
+    <meta name="description" content="本篇文章内容：
+
+Pytorch 的四个常用的重要的模块
+Pytorch 中张量的基础知识
+">
   
 
   <!-- feed -->
@@ -329,7 +335,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -393,123 +399,222 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow blur article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        Pytorch 简单的介绍
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="/assets/logo/xiaote_logo.jpeg">
+    <p>Chary</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Deeplearning/">Deeplearning</a><span class="sep"></span><a class="category-link" href="/categories/Deeplearning/Pytorch/">Pytorch</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年1月24日</p>
+  </a>
+</div>
+
           
         
           
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/05/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/">
-        新电脑重新搭建Blog
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>要点：在新的电脑上重新搭建自己的博客平台</p>
+      </div>
     
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-05</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Blog%E6%90%AD%E5%BB%BA/">Blog搭建</a>
-        
-      </div>
+  <p><strong>本篇文章内容</strong>：</p>
+<ol>
+<li><code>Pytorch</code> 的四个常用的重要的模块</li>
+<li><code>Pytorch</code> 中张量的基础知识</li>
+</ol>
+<a id="more"></a>
+
+
+<p><img src="https://raw.githubusercontent.com/charypro/CloudImage/main/imgs/torch-workflow.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/charypro/CloudImage/main/imgs/torch-workflow.png" srcset="data:image/png;base64,666" alt="Torch Pipeline"></p>
+<h2 id="Pytorch的主要模块"><a href="#Pytorch的主要模块" class="headerlink" title="Pytorch的主要模块"></a>Pytorch的主要模块</h2><p>Pytorch中最重要的四个模块：<strong>torch.nn</strong>，<strong>torch.optim</strong>，<strong>torch.utils.data</strong>，<strong>torch.autograd</strong></p>
+<h3 id="torch-utils-data"><a href="#torch-utils-data" class="headerlink" title="torch.utils.data"></a><strong>torch.utils.data</strong></h3><p>此模块主要是数据加载，其中最重要的两个类：<strong>Dataset</strong> 和 <strong>DataLoader</strong></p>
+<p><strong>Dataset</strong>：构建在Tensor数据类型之上，主要用于自定义数据集</p>
+<p><strong>DataLoader</strong>：当您有一个大的数据集，并且希望从后台的数据集加载数据，以便它准备就绪并等待训练循环时使用</p>
+<h3 id="torch-nn"><a href="#torch-nn" class="headerlink" title="torch.nn"></a><strong>torch.nn</strong></h3><p>用来创建神经网络模型，它提供了所有常用的神经网络层，如全连接层、卷积层、激活函数和损失函数等。</p>
+<h3 id="torch-optim-、torch-autograd"><a href="#torch-optim-、torch-autograd" class="headerlink" title="torch.optim 、torch.autograd"></a><strong>torch.optim</strong> 、<strong>torch.autograd</strong></h3><p>创建好了网络模型结构，就准备好将数据提供给网络，然后就需要更新权重和偏差，让网络开始学习。</p>
+<p><code>torch.optim</code>：是一个实现了各种优化算法的库</p>
+<p><code>torch.autograd</code>：提供了类和函数用来对任意标量函数进行求导</p>
+<h2 id="Tensor"><a href="#Tensor" class="headerlink" title="Tensor"></a>Tensor</h2><p>关于 <code>Tensor</code> 的构建、维度、类型、取值、与Numpy的互转和<code>Tensor</code>在CPU与GPU内的操作</p>
+<details red><summary> 点一下我，查看代码 </summary>
+              <div class='content'>
+              <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1. Create</span></span><br><span class="line">a = torch.ones(<span class="number">5</span>)</span><br><span class="line">print(a) <span class="comment"># tensor([1., 1., 1., 1., 1.])</span></span><br><span class="line">b = torch.zeros(<span class="number">5</span>)</span><br><span class="line">print(b) <span class="comment"># tensor([0., 0., 0., 0., 0.])</span></span><br><span class="line">c = torch.tensor([<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>])</span><br><span class="line">print(c) <span class="comment"># tensor([1., 2., 3., 4., 5.])</span></span><br><span class="line">d = torch.zeros(<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment">#tensor([[0., 0.],</span></span><br><span class="line"><span class="comment">#        [0., 0.],</span></span><br><span class="line"><span class="comment">#        [0., 0.]])</span></span><br><span class="line">e = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>],[<span class="number">3.0</span>, <span class="number">4.0</span>]])</span><br><span class="line">print(e)</span><br><span class="line"><span class="comment"># tensor([[1., 2.],</span></span><br><span class="line"><span class="comment">#        [3., 4.]])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3D Tensor</span></span><br><span class="line">g = torch.tensor([[[<span class="number">1.</span>, <span class="number">2.</span>], [<span class="number">3.</span>, <span class="number">4.</span>]], [[<span class="number">5.</span>, <span class="number">6.</span>], [<span class="number">7.</span>, <span class="number">8.</span>]]])</span><br><span class="line">print(g)</span><br><span class="line"><span class="comment"># tensor([[[1., 2.],</span></span><br><span class="line"><span class="comment">#         [3., 4.]],</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        [[5., 6.],</span></span><br><span class="line"><span class="comment">#         [7., 8.]]])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 2. Shape</span></span><br><span class="line">print(e.shape)</span><br><span class="line"><span class="comment"># torch.Size([2, 2])</span></span><br><span class="line">print(g.shape)</span><br><span class="line"><span class="comment"># torch.Size([2, 2, 2])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 3. Get</span></span><br><span class="line"><span class="comment"># Get element at index 2</span></span><br><span class="line">print(c[<span class="number">2</span>]) <span class="comment"># tensor(3.)</span></span><br><span class="line">print(e[<span class="number">1</span>][<span class="number">0</span>]) <span class="comment"># tensor(3.)</span></span><br><span class="line">print(g[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>])  <span class="comment"># tensor(5.)</span></span><br><span class="line">print(g[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>]) <span class="comment"># tensor(5.)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># All elements</span></span><br><span class="line">print(e[:])</span><br><span class="line"><span class="comment"># All elements from index 1 to 2 (inclusive)</span></span><br><span class="line">print(c[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line"><span class="comment"># All elements till index 4 (exclusive)</span></span><br><span class="line">print(c[:<span class="number">4</span>])</span><br><span class="line"><span class="comment"># First row</span></span><br><span class="line">print(e[<span class="number">0</span>,:])</span><br><span class="line"><span class="comment"># Second column</span></span><br><span class="line">print(e[:,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">## 4. Type</span></span><br><span class="line"><span class="comment"># type of elements</span></span><br><span class="line">int_tensor = torch.tensor([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">print(int_tensor.dtype) <span class="comment"># torch.int64</span></span><br><span class="line"><span class="comment"># What if we changed any one element to floating point number?</span></span><br><span class="line">int_tensor = torch.tensor([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4.</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">print(int_tensor.dtype) <span class="comment"># torch.float32</span></span><br><span class="line"><span class="comment"># This can be overridden as follows</span></span><br><span class="line">int_tensor = torch.tensor([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4.</span>,<span class="number">5</span>,<span class="number">6</span>]], dtype=torch.int32)</span><br><span class="line">print(int_tensor.dtype) <span class="comment"># torch.int32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 5. Tensor to/from NumPy Array</span></span><br><span class="line"><span class="comment"># Tensor to Array</span></span><br><span class="line">e = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>],[<span class="number">3.0</span>, <span class="number">4.0</span>]])</span><br><span class="line">print(e)</span><br><span class="line">e_numpy = e.numpy()</span><br><span class="line">print(e_numpy)</span><br><span class="line"><span class="comment"># array([[1., 2.],</span></span><br><span class="line"><span class="comment">#       [3., 4.]], dtype=float32)</span></span><br><span class="line"><span class="comment"># Array to Tensor</span></span><br><span class="line">h = np.array([[<span class="number">8</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">5</span>],[<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]])</span><br><span class="line">h_tensor = torch.from_numpy(h)</span><br><span class="line">print(h_tensor)</span><br><span class="line"><span class="comment"># tensor([[8, 7, 6, 5],</span></span><br><span class="line"><span class="comment">#        [4, 3, 2, 1]] , dtype=torch.int32)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. CPU v/s GPU Tensor</span></span><br><span class="line"><span class="comment"># Create a tensor for CPU</span></span><br><span class="line"><span class="comment"># This will occupy CPU RAM</span></span><br><span class="line">tensor_cpu = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>], [<span class="number">5.0</span>, <span class="number">6.0</span>]], device=<span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line"><span class="comment"># Create a tensor for GPU</span></span><br><span class="line"><span class="comment"># This will occupy GPU RAM</span></span><br><span class="line">tensor_gpu = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>], [<span class="number">3.0</span>, <span class="number">4.0</span>], [<span class="number">5.0</span>, <span class="number">6.0</span>]], device=<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line"><span class="comment"># Move GPU tensor to CPU</span></span><br><span class="line">tensor_gpu_cpu = tensor_gpu.to(device=<span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line"><span class="comment"># Move CPU tensor to GPU</span></span><br><span class="line">tensor_cpu_gpu = tensor_cpu.to(device=<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/12/05/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%94%B5%E8%84%91%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BABlog/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-24T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年1月24日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/04/25/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%89%88Blog%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97/">
-        新版本Blog主题写作指南
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>今天更新了之前用的Blog主题，现在是最新的<code>2.0</code>版本 —— <em>Volantis</em>,此版本中更新了不少的功能，在此将常用的一些操作记录下来，以便今后查询</p>
-<p class='p center logo large'>Volantis</p>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/pytorch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>pytorch</p></a></div>
 
-<span class='btn center large'><a class="button" target="_blank" rel="noopener" href='https://volantis.js.org/tag-plugins/' title='更多新功能请点击'><i class='fas fa-download'></i>更多新功能请点击</a></span>
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2021/01/24/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9/&title=Pytorch 简单的介绍 - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+Pytorch 的四个常用的重要的模块
+Pytorch 中张量的基础知识
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2021/01/24/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9/&title=Pytorch 简单的介绍 - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+Pytorch 的四个常用的重要的模块
+Pytorch 中张量的基础知识
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2021/01/24/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9/&title=Pytorch 简单的介绍 - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+Pytorch 的四个常用的重要的模块
+Pytorch 中张量的基础知识
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time>2020-04-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Blog%E6%90%AD%E5%BB%BA/">Blog搭建</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/04/25/%E5%85%B6%E5%AE%83/Blog/%E6%96%B0%E7%89%88Blog%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB(%E4%BB%85%E6%8E%A8%E7%90%86)/'>
+          <p class='title'>Pytorch进行图像分类(推理，使用预训练模型)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>本篇文章内容：
+
+使用AlexNet模型进行图像分类的流程
+模型选取的五个标准
+加载自定义模型
+
+
+
+Pytorch图像分类 - 模型推理使用 Torchvision 模块中的模型进行图像分类1...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-    
-  </section>
   
-    
+
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -517,157 +622,28 @@
     
     
 
-<section class="widget blogger blur desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='/assets/logo/xiaote_logo.jpeg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">CHARY | 哈哈哈哈哈</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="mailto:chaiyun321@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/charypro"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=122961877"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category blur desktop">
+  <section class="widget toc-wrapper blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Blog%E6%90%AD%E5%BB%BA/" href="/categories/Blog%E6%90%AD%E5%BB%BA/"
-            id="categoriesBlogE690ADE5BBBA"
-            ><div class='name'>Blog搭建</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Deeplearning/" href="/categories/Deeplearning/"
-            id="categoriesDeeplearning"
-            ><div class='name'>Deeplearning</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Deeplearning/Pytorch/" href="/categories/Deeplearning/Pytorch/"
-            id="categoriesDeeplearningPytorch"
-            ><div class='name'>Pytorch</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%BC%80%E5%8F%91/" href="/categories/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"
-            id="categoriesE5BC80E58F91LinuxE7B3BBE7BB9FE7BC96E7A88B"
-            ><div class='name'>Linux系统编程</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/QT/" href="/categories/%E5%BC%80%E5%8F%91/QT/"
-            id="categoriesE5BC80E58F91QT"
-            ><div class='name'>QT</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/"
-            id="categoriesE5BC80E58F91E588B7E9A298"
-            ><div class='name'>刷题</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/" href="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/"
-            id="categoriesE5BC80E58F91E6A087E58786E5BA93"
-            ><div class='name'>标准库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/" href="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/"
-            id="categoriesE5BC80E58F91E7AE97E6B395"
-            ><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pytorch%E7%9A%84%E4%B8%BB%E8%A6%81%E6%A8%A1%E5%9D%97"><span class="toc-text">Pytorch的主要模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#torch-utils-data"><span class="toc-text">torch.utils.data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#torch-nn"><span class="toc-text">torch.nn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#torch-optim-%E3%80%81torch-autograd"><span class="toc-text">torch.optim 、torch.autograd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tensor"><span class="toc-text">Tensor</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud blur desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/C/" style="font-size: 24px; color: #555">C++</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/c/" style="font-size: 19px; color: #777">c++</a> <a href="/tags/ffmpeg/" style="font-size: 14px; color: #999">ffmpeg</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/pytorch/" style="font-size: 24px; color: #555">pytorch</a> <a href="/tags/qt/" style="font-size: 14px; color: #999">qt</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 19px; color: #777">面试</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -677,8 +653,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Pytorch 简单的介绍";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

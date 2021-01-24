@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,18 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：AI应用 - CHARY | 哈哈哈哈哈</title>
+  <title>Pytorch进行图像分类(推理，使用预训练模型) - CHARY | 哈哈哈哈哈</title>
+  
+    <meta name="keywords" content="pytorch">
   
 
+  
+    <meta name="description" content="本篇文章内容：
+
+使用AlexNet模型进行图像分类的流程
+模型选取的五个标准
+加载自定义模型
+">
   
 
   <!-- feed -->
@@ -329,7 +336,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -393,74 +400,294 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow blur article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        Pytorch进行图像分类(推理，使用预训练模型)
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="/assets/logo/xiaote_logo.jpeg">
+    <p>Chary</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Deeplearning/">Deeplearning</a><span class="sep"></span><a class="category-link" href="/categories/Deeplearning/Pytorch/">Pytorch</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年12月28日</p>
+  </a>
+</div>
+
+          
         
           
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow blur">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">
-        Pytorch进行图像分割
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>使用Pytorch进行图像分割(不包括训练)</p>
+      </div>
     
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-28</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/AI%E5%BA%94%E7%94%A8/">AI应用</a><span class="sep"></span><a class="category-link" href="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/">Pytorch</a>
-        
-      </div>
+  <p><strong>本篇文章内容</strong>：</p>
+<ol>
+<li>使用<code>AlexNet</code>模型进行图像分类的流程</li>
+<li>模型选取的五个标准</li>
+<li>加载自定义模型</li>
+</ol>
+<a id="more"></a>
+
+<h1 id="Pytorch图像分类-模型推理"><a href="#Pytorch图像分类-模型推理" class="headerlink" title="Pytorch图像分类 - 模型推理"></a>Pytorch图像分类 - 模型推理</h1><h2 id="使用-Torchvision-模块中的模型进行图像分类"><a href="#使用-Torchvision-模块中的模型进行图像分类" class="headerlink" title="使用 Torchvision 模块中的模型进行图像分类"></a>使用 <strong>Torchvision</strong> 模块中的模型进行图像分类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> models</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>dir(models)</code>可以查看 <code>torchvision</code>中支持哪些模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;AlexNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;DenseNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;GoogLeNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;GoogLeNetOutputs&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;Inception3&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;InceptionOutputs&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;MNASNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;MobileNetV2&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;ResNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;ShuffleNetV2&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;SqueezeNet&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;VGG&#x27;</span>,</span><br><span class="line"> ...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用AlexNet进行图像分类"><a href="#利用AlexNet进行图像分类" class="headerlink" title="利用AlexNet进行图像分类"></a>利用<code>AlexNet</code>进行图像分类</h3><p><img src="https://raw.githubusercontent.com/charypro/CloudImage/main/imgs/AlexNet-1.png" class="lazyload" data-srcset="https://raw.githubusercontent.com/charypro/CloudImage/main/imgs/AlexNet-1.png" srcset="data:image/png;base64,666" alt="AlexNet Architecture"></p>
+<h4 id="1-加载预训练模型"><a href="#1-加载预训练模型" class="headerlink" title="1: 加载预训练模型"></a><strong>1: 加载预训练模型</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alexnet = models.alexnet(pretrained=<span class="literal">True</span>)</span><br><span class="line">print(alexnet)</span><br></pre></td></tr></table></figure>
+<details red><summary> 点击查看AlexNet的网络结构 </summary>
+              <div class='content'>
+              <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">AlexNet(</span><br><span class="line">  (features): Sequential(</span><br><span class="line">    (0): Conv2d(3, 64, kernel_size&#x3D;(11, 11), stride&#x3D;(4, 4), padding&#x3D;(2, 2))</span><br><span class="line">    (1): ReLU(inplace&#x3D;True)</span><br><span class="line">    (2): MaxPool2d(kernel_size&#x3D;3, stride&#x3D;2, padding&#x3D;0, dilation&#x3D;1, ceil_mode&#x3D;False)</span><br><span class="line">    (3): Conv2d(64, 192, kernel_size&#x3D;(5, 5), stride&#x3D;(1, 1), padding&#x3D;(2, 2))</span><br><span class="line">    (4): ReLU(inplace&#x3D;True)</span><br><span class="line">    (5): MaxPool2d(kernel_size&#x3D;3, stride&#x3D;2, padding&#x3D;0, dilation&#x3D;1, ceil_mode&#x3D;False)</span><br><span class="line">    (6): Conv2d(192, 384, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1))</span><br><span class="line">    (7): ReLU(inplace&#x3D;True)</span><br><span class="line">    (8): Conv2d(384, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1))</span><br><span class="line">    (9): ReLU(inplace&#x3D;True)</span><br><span class="line">    (10): Conv2d(256, 256, kernel_size&#x3D;(3, 3), stride&#x3D;(1, 1), padding&#x3D;(1, 1))</span><br><span class="line">    (11): ReLU(inplace&#x3D;True)</span><br><span class="line">    (12): MaxPool2d(kernel_size&#x3D;3, stride&#x3D;2, padding&#x3D;0, dilation&#x3D;1, ceil_mode&#x3D;False)</span><br><span class="line">  )</span><br><span class="line">  (avgpool): AdaptiveAvgPool2d(output_size&#x3D;(6, 6))</span><br><span class="line">  (classifier): Sequential(</span><br><span class="line">    (0): Dropout(p&#x3D;0.5, inplace&#x3D;False)</span><br><span class="line">    (1): Linear(in_features&#x3D;9216, out_features&#x3D;4096, bias&#x3D;True)</span><br><span class="line">    (2): ReLU(inplace&#x3D;True)</span><br><span class="line">    (3): Dropout(p&#x3D;0.5, inplace&#x3D;False)</span><br><span class="line">    (4): Linear(in_features&#x3D;4096, out_features&#x3D;4096, bias&#x3D;True)</span><br><span class="line">    (5): ReLU(inplace&#x3D;True)</span><br><span class="line">    (6): Linear(in_features&#x3D;4096, out_features&#x3D;1000, bias&#x3D;True)</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+              </div>
+            </details>
+
+
+
+<h4 id="2-数据转换"><a href="#2-数据转换" class="headerlink" title="2: 数据转换"></a><strong>2: 数据转换</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line">data_transforms = transforms.Compose([</span><br><span class="line">        transforms.resize(<span class="number">256</span>),</span><br><span class="line">        transforms.CenterCrop(<span class="number">224</span>),<span class="comment">#从中心开始裁剪</span></span><br><span class="line">        transforms.ToTensor(),</span><br><span class="line">        transforms.Normalize([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], </span><br><span class="line">                             [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])<span class="comment">#均值，标准差</span></span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3：加载输入图像并进行预处理"><a href="#3：加载输入图像并进行预处理" class="headerlink" title="3：加载输入图像并进行预处理"></a><strong>3：加载输入图像并进行预处理</strong></h4><p>对图像进行预处理，准备通过网络的图像的批次</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&quot;dog.jpg&quot;</span>)</span><br><span class="line">print(img)</span><br><span class="line"></span><br><span class="line">img_t = data_transforms(img)</span><br><span class="line">batch_t = torch.unsqueeze(img_t, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="4：模型推理"><a href="#4：模型推理" class="headerlink" title="4：模型推理"></a><strong>4：模型推理</strong></h4><ol>
+<li><p>需要把模型放到评估模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alexnet.<span class="built_in">eval</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进行推断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">out = alexnet(batch_t)</span><br><span class="line">print(out.shape) <span class="comment"># [1, 1000]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># classes 是1000个类别的标签集合</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;imagenet_classes.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">  classes = [line.strip() <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines()]</span><br><span class="line"><span class="comment"># 推断出该图片的类别，概率最大</span></span><br><span class="line">_, index = torch.<span class="built_in">max</span>(out, <span class="number">1</span>)</span><br><span class="line">percentage = torch.nn.functional.softmax(out, dim=<span class="number">1</span>)[<span class="number">0</span>] * <span class="number">100</span></span><br><span class="line">print(classes[index[<span class="number">0</span>]], percentage[index[<span class="number">0</span>]].item()) <span class="comment"># Labrador retriever 41.58518600463867</span></span><br><span class="line"><span class="comment"># 模型认为前五个最有可能属于的类别</span></span><br><span class="line">_, indices = torch.sort(out, descending=<span class="literal">True</span>)</span><br><span class="line">[(classes[idx], percentage[idx].item()) <span class="keyword">for</span> idx <span class="keyword">in</span> indices[<span class="number">0</span>][:<span class="number">5</span>]]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="使用-ResNet进行图像分类"><a href="#使用-ResNet进行图像分类" class="headerlink" title="使用 ResNet进行图像分类"></a>使用 <code>ResNet</code>进行图像分类</h3><p>同理，使用<code>resnet</code>模型操作和上述类似</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># First, load the model</span></span><br><span class="line">resnet = models.resnet101(pretrained=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Second, put the network in eval mode</span></span><br><span class="line">resnet.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Third, carry out model inference</span></span><br><span class="line">out = resnet(batch_t)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Forth, print the top 5 classes predicted by the model</span></span><br><span class="line">_, indices = torch.sort(out, descending=<span class="literal">True</span>)</span><br><span class="line">percentage = torch.nn.functional.softmax(out, dim=<span class="number">1</span>)[<span class="number">0</span>] * <span class="number">100</span></span><br><span class="line">[(labels[idx], percentage[idx].item()) <span class="keyword">for</span> idx <span class="keyword">in</span> indices[<span class="number">0</span>][:<span class="number">5</span>]] <span class="comment"># &#x27;Labrador retriever&#x27;, 48.25557327270508)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模型的选择标准"><a href="#模型的选择标准" class="headerlink" title="模型的选择标准"></a>模型的选择标准</h3><p>如何评估哪一个模型适合我们使用，遵循下面几个标准：</p>
+<ol>
+<li><strong>Top-1 Error</strong>：如果具有最高置信度的模型预测的类与真实类不同，则会出现<code>top-1</code>错误</li>
+<li><strong>Top-5 Error</strong>：如果真实类不在模型预测的前5个类中（按置信度排序），则会出现<code>top-5</code>错误</li>
+<li><strong>Inference Time on CPU</strong>：推理时间是模型推理步骤所用的时间</li>
+<li><strong>Inference Time on GPU</strong></li>
+<li><strong>Model size</strong>：这里size表示PyTorch提供的预训练模型的<code>.pth</code>文件所占用的物理空间</li>
+</ol>
+<h2 id="加载本地已存在的模型进行图像分类"><a href="#加载本地已存在的模型进行图像分类" class="headerlink" title="加载本地已存在的模型进行图像分类"></a>加载本地已存在的模型进行图像分类</h2><h4 id="加载本地的来自Torchvision-的网络模型"><a href="#加载本地的来自Torchvision-的网络模型" class="headerlink" title="加载本地的来自Torchvision 的网络模型"></a>加载本地的来自<strong>Torchvision</strong> 的网络模型</h4><p>不需要联网下载模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net = models.resnet101(pretrained=<span class="literal">False</span>) <span class="comment"># 这里为 False</span></span><br><span class="line">pthfile = <span class="string">r&#x27;E:\anaconda\app\envs\luo\Lib\site-packages\torchvision\models\squeezenet1_1.pth&#x27;</span></span><br><span class="line">net.load_state_dict(torch.load(pthfile))</span><br><span class="line">print(net)</span><br></pre></td></tr></table></figure>
+
+<h4 id="加载自定义的模型"><a href="#加载自定义的模型" class="headerlink" title="加载自定义的模型"></a>加载自定义的模型</h4><p>第一种：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##首先保存模型到checkpoint.pth</span></span><br><span class="line">torch.save(resnet50.state_dict(), ‘ckp/model.pth’)</span><br><span class="line"></span><br><span class="line"><span class="comment">##然后加载预训练的模型</span></span><br><span class="line">resnet=resnet50(pretrained=<span class="literal">False</span>)</span><br><span class="line">resnet.load_state_dict(torch.load(<span class="string">&#x27;ckp/model.pth&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>第二种：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.save (model, PATH) <span class="comment"># 保存</span></span><br><span class="line">model = torch.load(PATH) <span class="comment"># 恢复</span></span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/deeposcar/article/details/103872195">Pytorch 加载自己的训练模型</a></p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/'>
-            阅读全文
-          </a>
+        <div class='references'>
+          <section class='header'>
+            
+              <i class="fas fa-quote-left fa-fw" aria-hidden="true"></i>
+            
+            <span>参考资料</span>
+          </section>
+          <section class='body'>
+            <ul>
+              
+                <li>
+                  <a href="https://learnopencv.com/pytorch-for-beginners-image-classification-using-pre-trained-models/" rel="external nofollow noopener noreferrer" target="_blank">
+                  https://learnopencv.com/pytorch-for-beginners-image-classification-using-pre-trained-models/
+                  </a>
+                </li>
+              
+            </ul>
+          </section>
         </div>
+      
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-28T00:00:00+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年12月28日</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/pytorch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>pytorch</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://charypro.github.io/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB(%E4%BB%85%E6%8E%A8%E7%90%86)/&title=Pytorch进行图像分类(推理，使用预训练模型) - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+使用AlexNet模型进行图像分类的流程
+模型选取的五个标准
+加载自定义模型
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://charypro.github.io/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB(%E4%BB%85%E6%8E%A8%E7%90%86)/&title=Pytorch进行图像分类(推理，使用预训练模型) - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+使用AlexNet模型进行图像分类的流程
+模型选取的五个标准
+加载自定义模型
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://charypro.github.io/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB(%E4%BB%85%E6%8E%A8%E7%90%86)/&title=Pytorch进行图像分类(推理，使用预训练模型) - CHARY | 哈哈哈哈哈&summary=本篇文章内容：
+
+使用AlexNet模型进行图像分类的流程
+模型选取的五个标准
+加载自定义模型
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2021/01/24/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Pytorch 简单的介绍</p>
+          <p class='content'>本篇文章内容：
+
+Pytorch 的四个常用的重要的模块
+Pytorch 中张量的基础知识
+
+
+
+
+
+Pytorch的主要模块Pytorch中最重要的四个模块：torch.nn，torch.op...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/12/28/%E5%BC%80%E5%8F%91/AI/Pytorch%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2(%E4%BB%85%E6%8E%A8%E7%90%86)/'>
+          <p class='title'>Pytorch进行图像分割<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>本篇文章内容：
+
+一个简单的图像分类例子
+
+
+
+数据和模型模型期望使用 Imagenet 均值和标准差对3通道图像（RGB）进行归一化
+1mean &#x3D; [0.485, 0.456, 0...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -468,157 +695,28 @@
     
     
 
-<section class="widget blogger blur desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='/assets/logo/xiaote_logo.jpeg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">CHARY | 哈哈哈哈哈</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="mailto:chaiyun321@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/charypro"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=122961877"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category blur desktop">
+  <section class="widget toc-wrapper blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/AI%E5%BA%94%E7%94%A8/" href="/categories/AI%E5%BA%94%E7%94%A8/"
-            id="categoriesAIE5BA94E794A8"
-            ><div class='name'>AI应用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/" href="/categories/AI%E5%BA%94%E7%94%A8/Pytorch/"
-            id="categoriesAIE5BA94E794A8Pytorch"
-            ><div class='name'>Pytorch</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Blog%E6%90%AD%E5%BB%BA/" href="/categories/Blog%E6%90%AD%E5%BB%BA/"
-            id="categoriesBlogE690ADE5BBBA"
-            ><div class='name'>Blog搭建</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%BC%80%E5%8F%91/" href="/categories/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" href="/categories/%E5%BC%80%E5%8F%91/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"
-            id="categoriesE5BC80E58F91LinuxE7B3BBE7BB9FE7BC96E7A88B"
-            ><div class='name'>Linux系统编程</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/QT/" href="/categories/%E5%BC%80%E5%8F%91/QT/"
-            id="categoriesE5BC80E58F91QT"
-            ><div class='name'>QT</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/" href="/categories/%E5%BC%80%E5%8F%91/%E5%88%B7%E9%A2%98/"
-            id="categoriesE5BC80E58F91E588B7E9A298"
-            ><div class='name'>刷题</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/" href="/categories/%E5%BC%80%E5%8F%91/%E6%A0%87%E5%87%86%E5%BA%93/"
-            id="categoriesE5BC80E58F91E6A087E58786E5BA93"
-            ><div class='name'>标准库</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/" href="/categories/%E5%BC%80%E5%8F%91/%E7%AE%97%E6%B3%95/"
-            id="categoriesE5BC80E58F91E7AE97E6B395"
-            ><div class='name'>算法</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Torchvision-%E6%A8%A1%E5%9D%97%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB"><span class="toc-text">使用 Torchvision 模块中的模型进行图像分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8AlexNet%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB"><span class="toc-text">利用AlexNet进行图像分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8A%A0%E8%BD%BD%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">1: 加载预训练模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2"><span class="toc-text">2: 数据转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%EF%BC%9A%E5%8A%A0%E8%BD%BD%E8%BE%93%E5%85%A5%E5%9B%BE%E5%83%8F%E5%B9%B6%E8%BF%9B%E8%A1%8C%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">3：加载输入图像并进行预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%EF%BC%9A%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86"><span class="toc-text">4：模型推理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ResNet%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB"><span class="toc-text">使用 ResNet进行图像分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%80%89%E6%8B%A9%E6%A0%87%E5%87%86"><span class="toc-text">模型的选择标准</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB"><span class="toc-text">加载本地已存在的模型进行图像分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E7%9A%84%E6%9D%A5%E8%87%AATorchvision-%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="toc-text">加载本地的来自Torchvision 的网络模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">加载自定义的模型</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud blur desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/C/" style="font-size: 24px; color: #555">C++</a> <a href="/tags/QT/" style="font-size: 14px; color: #999">QT</a> <a href="/tags/c/" style="font-size: 19px; color: #777">c++</a> <a href="/tags/ffmpeg/" style="font-size: 14px; color: #999">ffmpeg</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/pytorch/" style="font-size: 14px; color: #999">pytorch</a> <a href="/tags/qt/" style="font-size: 14px; color: #999">qt</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 19px; color: #777">面试</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -628,8 +726,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Pytorch进行图像分类(推理，使用预训练模型)";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
